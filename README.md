@@ -70,7 +70,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 **##About The Project**
-This is basically a SPA(Single Page Application) which genrates the mean ,median and mode of a given set of data which is basically an array of objects.
+This is basically a SPA(Single Page Application) which generates a table by aggregating the crops data which is basically an array of objects.
 Here,is the screenshot attached to it
 
 ![Screenshot Of The WebPage](./src/assests/screenshot.png)
+(./src/assests/screenshot(avg).png)
