@@ -74,4 +74,3 @@ This is basically a SPA(Single Page Application) which generates a table by aggr
 Here,is the screenshot attached to it
 
 ![Screenshot Of The WebPage](./src/assests/Screenshot.png)
-![Screenshot Of The WebPage](<./src/assests/Screenshot(avg).png>)
