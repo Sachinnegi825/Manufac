@@ -73,5 +73,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 This is basically a SPA(Single Page Application) which generates a table by aggregating the crops data which is basically an array of objects.
 Here,is the screenshot attached to it
 
-![Screenshot Of The WebPage](./src/assests/screenshot.png)
-(./src/assests/screenshot(avg).png)
+![Screenshot Of The WebPage](./src/assests/Screenshot.png)
+![Screenshot Of The WebPage](<./src/assests/Screenshot(avg).png>)
