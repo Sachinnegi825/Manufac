@@ -1,47 +1,66 @@
-export function calculateMean(numbers) {
-  if (numbers.length === 0) return 0;
+export const getMaxAndMinCropsByYear = (data) => {
+  const yearMap = {};
 
-  const sum = numbers.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
-  return parseFloat((sum / numbers.length).toFixed(3));
-}
+  data.map((entry) => {
+    const year = entry.Year;
+    const crop = entry["Crop Name"];
+    const production = entry["Crop Production (UOM:t(Tonnes))"];
 
-export function calculateMode(numbers) {
-  if (numbers.length === 0) return null;
-
-  const counts = {};
-  let mode = numbers[0];
-  let maxCount = 1;
-
-  for (let i = 0; i < numbers.length; i++) {
-    const num = numbers[i];
-    counts[num] = (counts[num] || 0) + 1;
-    if (counts[num] > maxCount) {
-      mode = num;
-      maxCount = counts[num];
+    if (!yearMap[year]) {
+      yearMap[year] = {
+        maxCrop: crop,
+        maxProduction: production,
+        minCrop: crop,
+        minProduction: production,
+      };
+    } else {
+      if (production > yearMap[year].maxProduction) {
+        yearMap[year].maxCrop = crop;
+        yearMap[year].maxProduction = production;
+      }
+      if (production < yearMap[year].minProduction) {
+        yearMap[year].minCrop = crop;
+        yearMap[year].minProduction = production;
+      }
     }
-  }
+  });
 
-  return parseInt(mode);
-}
+  return Object.entries(yearMap).map(([year, { maxCrop, minCrop }]) => ({
+    year,
+    maxCrop,
+    minCrop,
+  }));
+};
 
-export function calculateMedian(numbers) {
-  const sorted = numbers.slice().sort((a, b) => a - b);
-  const middleIndex = Math.floor(sorted.length / 2);
+// Function to calculate averages
+export const calculateAverages = (data) => {
+  const cropMap = {};
 
-  if (sorted.length % 2 === 0) {
-    return (sorted[middleIndex - 1] + sorted[middleIndex]) / 2;
-  } else {
-    return sorted[middleIndex];
-  }
-}
+  data.forEach((entry) => {
+    const crop = entry["Crop Name"];
+    const yieldOfCrops =
+      entry["Yield Of Crops (UOM:Kg/Ha(KilogramperHectare))"] || 0;
+    const areaUnderCultivation =
+      entry["Area Under Cultivation (UOM:Ha(Hectares))"] || 0;
 
-export default function CalculateData(dataSet) {
-  const mean = calculateMean(dataSet);
-  const median = calculateMedian(dataSet);
-  const mode = calculateMode(dataSet);
+    if (!cropMap[crop]) {
+      cropMap[crop] = {
+        totalYield: 0,
+        totalArea: 0,
+        count: 0,
+      };
+    }
 
-  return { mean, median, mode };
-}
+    cropMap[crop].totalYield += yieldOfCrops;
+    cropMap[crop].totalArea += areaUnderCultivation;
+    cropMap[crop].count += 1;
+  });
+
+  return Object.entries(cropMap).map(
+    ([crop, { totalYield, totalArea, count }]) => [
+      crop,
+      (totalYield / count).toFixed(3),
+      (totalArea / count).toFixed(3),
+    ]
+  );
+};

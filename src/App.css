@@ -28,6 +28,10 @@ body {
   border-radius: 10px;
   box-shadow: 5px 5px 5px grey;
   width: 80%;
+  text-align: center;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 td,
